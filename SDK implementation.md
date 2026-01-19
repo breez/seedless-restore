@@ -134,11 +134,9 @@ The ability to change the domain (rpID) associated with a passkey varies by pass
 To ensure reliable storage of salt lists across the network, we utilize NOSTR with redundancy measures:
 
 ### Breez-Managed Relay
-Breez maintains a dedicated relay where authenticated users can publish events. To enable publishing to Breez's relay, users of the Breez SDK must:
+Breez maintains a dedicated relay where authenticated users can publish events. To enable publishing to Breez's relay, the SDK uses API key-based authentication:
 
-1. **Register Public Key in Partner Portal**: Users of the SDK must add a NOSTR public key in the Breez Partner Portal to authorize publishing to the Breez-managed relay.
-
-2. **NIP-42 Authentication**: Once the public key is registered, the app using the SDK can use the private key corresponding to the public key registered in the Partner Portal to authenticate using the [NIP-42 (HTTP Authentication)](https://github.com/nostr-protocol/nips/blob/master/42.md) protocol.
+The private key used to sign the AUTH request for NIP-42 authentication will be derived by the SDK from the API key. This allows the SDK to authenticate with the Breez-managed relay using the [NIP-42 (HTTP Authentication)](https://github.com/nostr-protocol/nips/blob/master/42.md) protocol without requiring separate public key registration.
 
 This authentication mechanism ensures secure and authorized access to the relay, guaranteeing at least one reliable storage location.
 
